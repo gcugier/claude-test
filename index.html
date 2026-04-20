@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TermoService — Instalacje grzewcze i chłodnicze | Pompy ciepła, klimatyzacja, kotły</title>
   <meta name="description" content="Profesjonalny montaż i serwis pomp ciepła, klimatyzacji, kotłów i wentylacji. Bezpłatna wycena, gwarancja, dofinansowania. Działamy w całym województwie." />
+  <meta name="color-scheme" content="dark" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* fallback: jeśli Tailwind CDN nie załaduje — basic visibility */
@@ -28,7 +29,7 @@
         radial-gradient(600px 500px at 70% 85%, rgba(139,92,246,.40), transparent 60%),
         radial-gradient(420px 340px at 20% 90%, rgba(16,185,129,.35), transparent 60%),
         radial-gradient(380px 320px at 55% 45%, rgba(244,114,182,.25), transparent 60%);
-      filter: blur(60px) saturate(120%);
+      filter: blur(60px) saturate(100%);
       z-index: -1;
       animation: orbFloat 16s ease-in-out infinite alternate;
     }
@@ -118,6 +119,11 @@
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(2,6,23,.25); }
     details[open] summary .chev { transform: rotate(180deg); }
     .chev { transition: transform .2s ease; }
+
+    /* Tone down orb brightness on wide-gamut (P3) displays so iOS ≈ Android */
+    @media (color-gamut: p3) {
+      .hero-gradient::before { filter: blur(60px) saturate(85%); opacity: .85; }
+    }
   </style>
   <script>
     tailwind.config = {
