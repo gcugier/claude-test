@@ -219,9 +219,9 @@
         <!-- SLIDER -->
         <div id=”hs” style=”position:relative;width:100%;overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
 
-          <img class=”hs-slide” src=”assets/hero.jpg”        alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
-          <img class=”hs-slide” src=”assets/zdjecie1.webp”   alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
-          <img class=”hs-slide” src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
+          <img id=”hs-s0” src=”assets/hero.jpg”        alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity .5s ease;z-index:1;”>
+          <img id=”hs-s1” src=”assets/zdjecie1.webp”   alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;z-index:1;”>
+          <img id=”hs-s2” src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;z-index:1;”>
 
           <div style=”position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
 
@@ -237,12 +237,16 @@
 
         <script>
           (function(){
-            var slides = document.querySelectorAll('#hs .hs-slide');
+            var slides = [
+              document.getElementById('hs-s0'),
+              document.getElementById('hs-s1'),
+              document.getElementById('hs-s2')
+            ];
             var dotsEl = document.getElementById('hs-dots');
             var total  = slides.length;
             var cur    = 0;
-            var timer;
 
+            /* kropki */
             for(var i=0;i<total;i++){
               var d=document.createElement('button');
               d.style.cssText='height:10px;border-radius:5px;border:none;cursor:pointer;padding:0;transition:all .3s;background:rgba(255,255,255,.4);width:10px;';
@@ -262,22 +266,20 @@
               cur = (n%total+total)%total;
               slides[cur].style.opacity='1';
               updDots();
-              clearInterval(timer);
-              timer = setInterval(function(){ go(cur+1); }, 4500);
             }
 
             document.getElementById('hs-prev').addEventListener('click',function(){ go(cur-1); });
             document.getElementById('hs-next').addEventListener('click',function(){ go(cur+1); });
 
-            var tx=0, ty=0;
-            document.getElementById('hs').addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; ty=e.touches[0].clientY; },{passive:true});
+            var tx=0,ty=0;
+            document.getElementById('hs').addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
             document.getElementById('hs').addEventListener('touchend',function(e){
-              var dx=e.changedTouches[0].clientX-tx;
-              var dy=e.changedTouches[0].clientY-ty;
-              if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){ go(dx<0?cur+1:cur-1); }
+              var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+              if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){go(dx<0?cur+1:cur-1);}
             },{passive:true});
 
-            go(0);
+            updDots();
+            setInterval(function(){go(cur+1);},4500);
           })();
         </script>
       </div>
