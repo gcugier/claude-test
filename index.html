@@ -201,10 +201,60 @@
       </div>
 
       <div class=”relative”>
-        <div style=”position:relative;z-index:2;height:480px;border-radius:1.5rem;overflow:hidden;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
-          <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.7) 0%,transparent 50%);”></div>
+        <!-- SLIDER -->
+        <div id=”hero-slider” style=”position:relative;z-index:2;height:480px;border-radius:1.5rem;overflow:hidden;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
 
+          <div id=”slider-track” style=”display:flex;width:100%;height:100%;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);”>
+            <div style=”min-width:100%;height:100%;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;flex-shrink:0;”></div>
+            <div style=”min-width:100%;height:100%;background-image:url('https://placehold.co/800x480/0c4a6e/7dd3fc?text=Zdjęcie+2');background-size:cover;background-position:center;flex-shrink:0;”></div>
+            <div style=”min-width:100%;height:100%;background-image:url('https://placehold.co/800x480/431407/fdba74?text=Zdjęcie+3');background-size:cover;background-position:center;flex-shrink:0;”></div>
+          </div>
+
+          <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.6) 0%,transparent 50%);pointer-events:none;”></div>
+
+          <button onclick=”sliderPrev()” style=”position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
+            <svg width=”16” height=”16” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M15 18l-6-6 6-6”/></svg>
+          </button>
+          <button onclick=”sliderNext()” style=”position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
+            <svg width=”16” height=”16” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
+          </button>
+
+          <div id=”slider-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10;”></div>
         </div>
+
+        <script>
+          (function(){
+            const total = 3;
+            let current = 0;
+            let timer;
+            const track = document.getElementById('slider-track');
+            const dotsEl = document.getElementById('slider-dots');
+            for(let i=0;i<total;i++){
+              const d=document.createElement('button');
+              d.style.cssText='width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;transition:all 0.3s;';
+              d.onclick=()=>goTo(i);
+              dotsEl.appendChild(d);
+            }
+            function updateDots(){
+              Array.from(dotsEl.children).forEach((d,i)=>{
+                d.style.background=i===current?'white':'rgba(255,255,255,0.4)';
+                d.style.width=i===current?'20px':'8px';
+                d.style.borderRadius=i===current?'4px':'50%';
+              });
+            }
+            function goTo(n){
+              current=(n+total)%total;
+              track.style.transform='translateX(-'+(current*100)+'%)';
+              updateDots();
+              clearInterval(timer);
+              timer=setInterval(()=>goTo(current+1),4000);
+            }
+            window.sliderNext=()=>goTo(current+1);
+            window.sliderPrev=()=>goTo(current-1);
+            updateDots();
+            timer=setInterval(()=>goTo(current+1),4000);
+          })();
+        </script>
       </div>
     </div>
   </section>
