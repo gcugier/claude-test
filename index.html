@@ -125,7 +125,7 @@
 
     #hero-slider { height: clamp(240px,55vw,480px); }
     @media (max-width: 768px) {
-      #hero-slider { height: auto; aspect-ratio: 1 / 1; }
+      #hero-slider { height: calc(100vw - 32px); }
     }
 
     /* Tone down orb brightness on wide-gamut (P3) displays so iOS ≈ Android */
