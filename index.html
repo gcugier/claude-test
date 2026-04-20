@@ -204,10 +204,10 @@
         <!-- SLIDER -->
         <div id=”hero-slider” style=”position:relative;z-index:2;height:480px;border-radius:1.5rem;overflow:hidden;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
 
-          <div id=”slider-track” style=”display:flex;width:100%;height:100%;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);”>
-            <div style=”min-width:100%;height:100%;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;flex-shrink:0;”></div>
-            <div style=”min-width:100%;height:100%;background-image:url('https://placehold.co/800x480/0c4a6e/7dd3fc?text=Zdjęcie+2');background-size:cover;background-position:center;flex-shrink:0;”></div>
-            <div style=”min-width:100%;height:100%;background-image:url('https://placehold.co/800x480/431407/fdba74?text=Zdjęcie+3');background-size:cover;background-position:center;flex-shrink:0;”></div>
+          <div id=”slider-track” style=”display:flex;width:300%;height:100%;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);”>
+            <div style=”width:33.3333%;height:100%;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;flex-shrink:0;”></div>
+            <div style=”width:33.3333%;height:100%;background-image:url('https://placehold.co/800x480/0c4a6e/7dd3fc?text=Zdjęcie+2');background-size:cover;background-position:center;flex-shrink:0;”></div>
+            <div style=”width:33.3333%;height:100%;background-image:url('https://placehold.co/800x480/431407/fdba74?text=Zdjęcie+3');background-size:cover;background-position:center;flex-shrink:0;”></div>
           </div>
 
           <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.6) 0%,transparent 50%);pointer-events:none;”></div>
@@ -244,7 +244,7 @@
             }
             function goTo(n){
               current=(n+total)%total;
-              track.style.transform='translateX(-'+(current*100)+'%)';
+              track.style.transform='translateX(-'+(current*100/3)+'%)';
               updateDots();
               clearInterval(timer);
               timer=setInterval(()=>goTo(current+1),4000);
