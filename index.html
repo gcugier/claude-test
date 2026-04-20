@@ -123,10 +123,7 @@
     details[open] summary .chev { transform: rotate(180deg); }
     .chev { transition: transform .2s ease; }
 
-    #hs { position:relative; width:100%; height:calc(100vw - 2rem); overflow:hidden; border-radius:1.5rem; box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06); }
-    @media(min-width:768px){ #hs { height:420px; } }
-    .hs-slide { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .5s ease; display:block; }
-    .hs-slide.hs-on { opacity:1; }
+    @media(min-width:768px){ #hs { height:420px !important; } }
 
     /* Tone down orb brightness on wide-gamut (P3) displays so iOS ≈ Android */
     @media (color-gamut: p3) {
@@ -219,11 +216,11 @@
 
       <div class=”relative”>
         <!-- SLIDER -->
-        <div id=”hs”>
+        <div id=”hs” style=”position:relative;width:100%;height:calc(100vw - 2rem);overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
 
-          <img class=”hs-slide” src=”assets/hero.jpg”        alt=””>
-          <img class=”hs-slide” src=”assets/zdjecie1.webp”   alt=””>
-          <img class=”hs-slide” src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=””>
+          <img class=”hs-slide” src=”assets/hero.jpg”        alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
+          <img class=”hs-slide” src=”assets/zdjecie1.webp”   alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
+          <img class=”hs-slide” src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
 
           <div style=”position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
 
@@ -260,9 +257,9 @@
             }
 
             function go(n){
-              slides[cur].classList.remove('hs-on');
+              slides[cur].style.opacity='0';
               cur = (n%total+total)%total;
-              slides[cur].classList.add('hs-on');
+              slides[cur].style.opacity='1';
               updDots();
               clearInterval(timer);
               timer = setInterval(function(){ go(cur+1); }, 4500);
