@@ -219,10 +219,7 @@
             <svg width=”16” height=”16” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
           </button>
 
-          <!-- licznik slajdów -->
-          <div id=”slider-counter” style=”position:absolute;top:12px;right:14px;z-index:10;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;color:white;letter-spacing:0.05em;”></div>
-          <!-- kropki -->
-          <div id=”slider-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;align-items:center;”></div>
+          <div id=”slider-dots” style=”position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 14px;”></div>
         </div>
 
         <script>
@@ -232,31 +229,24 @@
             let timer;
             const track = document.getElementById('slider-track');
             const dotsEl = document.getElementById('slider-dots');
-            const counterEl = document.getElementById('slider-counter');
             for(let i=0;i<total;i++){
               const d=document.createElement('button');
-              d.style.cssText='width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,0.5);cursor:pointer;transition:all 0.3s;font-size:11px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);backdrop-filter:blur(6px);';
-              d.textContent=i+1;
+              d.style.cssText='height:12px;border-radius:6px;border:none;cursor:pointer;transition:all 0.35s ease;background:rgba(255,255,255,0.45);padding:0;';
               d.onclick=()=>goTo(i);
               dotsEl.appendChild(d);
             }
             function updateDots(){
               Array.from(dotsEl.children).forEach((d,i)=>{
                 if(i===current){
+                  d.style.width='32px';
                   d.style.background='white';
-                  d.style.color='#0369a1';
-                  d.style.borderColor='white';
-                  d.style.transform='scale(1.25)';
-                  d.style.boxShadow='0 0 0 3px rgba(255,255,255,0.3)';
+                  d.style.boxShadow='0 0 8px rgba(255,255,255,0.7)';
                 } else {
-                  d.style.background='rgba(0,0,0,0.35)';
-                  d.style.color='white';
-                  d.style.borderColor='rgba(255,255,255,0.5)';
-                  d.style.transform='scale(1)';
+                  d.style.width='12px';
+                  d.style.background='rgba(255,255,255,0.45)';
                   d.style.boxShadow='none';
                 }
               });
-              counterEl.textContent=(current+1)+' / '+total;
             }
             function goTo(n){
               current=(n+total)%total;
