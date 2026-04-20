@@ -201,28 +201,27 @@
       </div>
 
       <div class=”relative”>
-        <div class=”relative rounded-3xl overflow-hidden” style=”height:480px;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
-          <!-- gradient overlay na dole -->
-          <div style=”position:absolute;inset:0;background:linear-gradient(to top, rgba(5,7,13,0.7) 0%, transparent 50%);”></div>
-        </div>
+        <div style=”position:relative;z-index:2;height:480px;border-radius:1.5rem;overflow:hidden;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
+          <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.7) 0%,transparent 50%);”></div>
 
-        <!-- floating card — opinie -->
-        <div class=”absolute bottom-5 left-5 lg-glass rounded-2xl px-4 py-3 flex items-center gap-3”>
-          <div class=”flex -space-x-2”>
-            <span class=”w-8 h-8 rounded-full bg-brand-500 border-2 border-white/20 grid place-items-center text-xs font-bold”>AK</span>
-            <span class=”w-8 h-8 rounded-full bg-warm-500 border-2 border-white/20 grid place-items-center text-xs font-bold”>MN</span>
-            <span class=”w-8 h-8 rounded-full bg-emerald-600 border-2 border-white/20 grid place-items-center text-xs font-bold”>JW</span>
+          <!-- floating card — opinie -->
+          <div class=”lg-glass rounded-2xl px-4 py-3 flex items-center gap-3” style=”position:absolute;bottom:1.25rem;left:1.25rem;”>
+            <div class=”flex -space-x-2”>
+              <span class=”w-8 h-8 rounded-full bg-brand-500 border-2 border-white/20 grid place-items-center text-xs font-bold”>AK</span>
+              <span class=”w-8 h-8 rounded-full bg-warm-500 border-2 border-white/20 grid place-items-center text-xs font-bold”>MN</span>
+              <span class=”w-8 h-8 rounded-full bg-emerald-600 border-2 border-white/20 grid place-items-center text-xs font-bold”>JW</span>
+            </div>
+            <div>
+              <div class=”flex items-center gap-0.5 text-amber-400 text-xs”>★★★★★</div>
+              <div class=”text-xs text-slate-300 font-medium”>4.9/5 · 312 opinii</div>
+            </div>
           </div>
-          <div>
-            <div class=”flex items-center gap-0.5 text-amber-400 text-xs”>★★★★★</div>
-            <div class=”text-xs text-slate-300 font-medium”>4.9/5 · 312 opinii</div>
-          </div>
-        </div>
 
-        <!-- floating card — gwarancja -->
-        <div class=”absolute top-5 right-5 lg-glass rounded-2xl px-4 py-3 text-center”>
-          <div class=”text-2xl font-extrabold bg-gradient-to-r from-brand-400 to-warm-400 bg-clip-text text-transparent”>3 lata</div>
-          <div class=”text-xs text-slate-300 font-medium”>gwarancji na montaż</div>
+          <!-- floating card — gwarancja -->
+          <div class=”lg-glass rounded-2xl px-4 py-3 text-center” style=”position:absolute;top:1.25rem;right:1.25rem;”>
+            <div class=”text-2xl font-extrabold bg-gradient-to-r from-brand-400 to-warm-400 bg-clip-text text-transparent”>3 lata</div>
+            <div class=”text-xs text-slate-300 font-medium”>gwarancji na montaż</div>
+          </div>
         </div>
       </div>
     </div>
