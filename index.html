@@ -123,11 +123,10 @@
     details[open] summary .chev { transform: rotate(180deg); }
     .chev { transition: transform .2s ease; }
 
-    .hs-wrap { position:relative; width:100%; overflow:hidden; border-radius:1.5rem; box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06); }
-    .hs-wrap::before { content:''; display:block; padding-top:100%; }
-    @media(min-width:768px){ .hs-wrap::before { padding-top:65%; } }
-    .hs-slide { position:absolute; inset:0; transition:transform .55s cubic-bezier(.4,0,.2,1); }
-    .hs-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    #hs { position:relative; width:100%; height:calc(100vw - 2rem); overflow:hidden; border-radius:1.5rem; box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06); }
+    @media(min-width:768px){ #hs { height:420px; } }
+    .hs-slide { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .5s ease; display:block; }
+    .hs-slide.hs-on { opacity:1; }
 
     /* Tone down orb brightness on wide-gamut (P3) displays so iOS ≈ Android */
     @media (color-gamut: p3) {
@@ -220,80 +219,64 @@
 
       <div class=”relative”>
         <!-- SLIDER -->
-        <div class=”hs-wrap” id=”hs-wrap”>
+        <div id=”hs”>
 
-          <div class=”hs-slide”>
-            <img src=”assets/hero.jpg” alt=”Instalacja grzewcza”>
-          </div>
-          <div class=”hs-slide”>
-            <img src=”assets/zdjecie1.webp” alt=”Realizacja”>
-          </div>
-          <div class=”hs-slide”>
-            <img src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”Realizacja 3”>
-          </div>
+          <img class=”hs-slide” src=”assets/hero.jpg”        alt=””>
+          <img class=”hs-slide” src=”assets/zdjecie1.webp”   alt=””>
+          <img class=”hs-slide” src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=””>
 
-          <!-- gradient -->
-          <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
+          <div style=”position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
 
-          <!-- strzałki -->
-          <button id=”hs-prev” style=”position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
-            <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M15 18l-6-6 6-6”/></svg>
+          <button id=”hs-prev” style=”position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
+            <svg width=”20” height=”20” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M15 18l-6-6 6-6”/></svg>
           </button>
-          <button id=”hs-next” style=”position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
-            <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
+          <button id=”hs-next” style=”position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
+            <svg width=”20” height=”20” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
           </button>
 
-          <!-- kropki -->
-          <div id=”hs-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;align-items:center;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 14px;”></div>
+          <div id=”hs-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;align-items:center;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 14px;”></div>
         </div>
 
         <script>
           (function(){
-            var slides = document.querySelectorAll('.hs-slide');
-            var dots   = document.getElementById('hs-dots');
+            var slides = document.querySelectorAll('#hs .hs-slide');
+            var dotsEl = document.getElementById('hs-dots');
             var total  = slides.length;
             var cur    = 0;
             var timer;
 
-            /* ustaw pozycje startowe */
-            slides.forEach(function(s,i){ s.style.transform='translateX('+(i*100)+'%)'; });
-
-            /* kropki */
             for(var i=0;i<total;i++){
               var d=document.createElement('button');
-              d.style.cssText='height:10px;border-radius:5px;border:none;cursor:pointer;padding:0;transition:all .3s;';
+              d.style.cssText='height:10px;border-radius:5px;border:none;cursor:pointer;padding:0;transition:all .3s;background:rgba(255,255,255,.4);width:10px;';
               (function(idx){ d.addEventListener('click',function(){ go(idx); }); })(i);
-              dots.appendChild(d);
+              dotsEl.appendChild(d);
             }
 
             function updDots(){
-              Array.from(dots.children).forEach(function(d,i){
-                d.style.width  = i===cur?'28px':'10px';
-                d.style.background = i===cur?'#fff':'rgba(255,255,255,.4)';
+              Array.from(dotsEl.children).forEach(function(d,i){
+                d.style.width      = i===cur ? '28px' : '10px';
+                d.style.background = i===cur ? '#fff' : 'rgba(255,255,255,.4)';
               });
             }
 
             function go(n){
-              cur=(n%total+total)%total;
-              slides.forEach(function(s,i){
-                s.style.transform='translateX('+((i-cur)*100)+'%)';
-              });
+              slides[cur].classList.remove('hs-on');
+              cur = (n%total+total)%total;
+              slides[cur].classList.add('hs-on');
               updDots();
               clearInterval(timer);
-              timer=setInterval(function(){ go(cur+1); },4500);
+              timer = setInterval(function(){ go(cur+1); }, 4500);
             }
 
             document.getElementById('hs-prev').addEventListener('click',function(){ go(cur-1); });
             document.getElementById('hs-next').addEventListener('click',function(){ go(cur+1); });
 
-            /* swipe */
             var tx=0, ty=0;
-            var wrap=document.getElementById('hs-wrap');
-            wrap.addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; ty=e.touches[0].clientY; },{passive:true});
-            wrap.addEventListener('touchend',function(e){
+            document.getElementById('hs').addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; ty=e.touches[0].clientY; },{passive:true});
+            document.getElementById('hs').addEventListener('touchend',function(e){
               var dx=e.changedTouches[0].clientX-tx;
               var dy=e.changedTouches[0].clientY-ty;
-              if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){ dx<0?go(cur+1):go(cur-1); }
+              if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){ go(dx<0?cur+1:cur-1); }
             },{passive:true});
 
             go(0);
