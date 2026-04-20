@@ -124,9 +124,8 @@
     .chev { transition: transform .2s ease; }
 
     .hs-wrap { position:relative; width:100%; overflow:hidden; border-radius:1.5rem; box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06); }
-    .hs-wrap::before { content:''; display:block; padding-top:75%; }
-    @media(min-width:768px){ .hs-wrap::before { padding-top:62.5%; } }
-    .hs-inner { position:absolute; inset:0; }
+    .hs-wrap::before { content:''; display:block; padding-top:100%; }
+    @media(min-width:768px){ .hs-wrap::before { padding-top:65%; } }
     .hs-slide { position:absolute; inset:0; transition:transform .55s cubic-bezier(.4,0,.2,1); }
     .hs-slide img { width:100%; height:100%; object-fit:cover; display:block; }
 
@@ -222,32 +221,30 @@
       <div class=”relative”>
         <!-- SLIDER -->
         <div class=”hs-wrap” id=”hs-wrap”>
-          <div class=”hs-inner”>
 
-            <div class=”hs-slide”>
-              <img src=”assets/hero.jpg” alt=”Instalacja grzewcza”>
-            </div>
-            <div class=”hs-slide”>
-              <img src=”assets/zdjecie1.webp” alt=”Realizacja”>
-            </div>
-            <div class=”hs-slide”>
-              <img src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”Realizacja 3”>
-            </div>
-
-            <!-- gradient overlay -->
-            <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
-
-            <!-- strzałki -->
-            <button id=”hs-prev” style=”position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
-              <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M15 18l-6-6 6-6”/></svg>
-            </button>
-            <button id=”hs-next” style=”position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
-              <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
-            </button>
-
-            <!-- kropki -->
-            <div id=”hs-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;align-items:center;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 14px;”></div>
+          <div class=”hs-slide”>
+            <img src=”assets/hero.jpg” alt=”Instalacja grzewcza”>
           </div>
+          <div class=”hs-slide”>
+            <img src=”assets/zdjecie1.webp” alt=”Realizacja”>
+          </div>
+          <div class=”hs-slide”>
+            <img src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”Realizacja 3”>
+          </div>
+
+          <!-- gradient -->
+          <div style=”position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
+
+          <!-- strzałki -->
+          <button id=”hs-prev” style=”position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
+            <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M15 18l-6-6 6-6”/></svg>
+          </button>
+          <button id=”hs-next” style=”position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
+            <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
+          </button>
+
+          <!-- kropki -->
+          <div id=”hs-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;align-items:center;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 14px;”></div>
         </div>
 
         <script>
