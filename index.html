@@ -123,7 +123,8 @@
     details[open] summary .chev { transform: rotate(180deg); }
     .chev { transition: transform .2s ease; }
 
-    @media(min-width:768px){ #hs { height:420px !important; } }
+    #hs { height:340px; }
+    @media(min-width:768px){ #hs { height:460px; } }
 
     /* Tone down orb brightness on wide-gamut (P3) displays so iOS ≈ Android */
     @media (color-gamut: p3) {
@@ -216,7 +217,7 @@
 
       <div class=”relative”>
         <!-- SLIDER -->
-        <div id=”hs” style=”position:relative;width:100%;height:calc(100vw - 2rem);overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
+        <div id=”hs” style=”position:relative;width:100%;overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
 
           <img class=”hs-slide” src=”assets/hero.jpg”        alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
           <img class=”hs-slide” src=”assets/zdjecie1.webp”   alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;”>
