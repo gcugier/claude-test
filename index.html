@@ -123,8 +123,8 @@
     details[open] summary .chev { transform: rotate(180deg); }
     .chev { transition: transform .2s ease; }
 
-    #hs { height:340px; }
-    @media(min-width:768px){ #hs { height:460px; } }
+    #carousel { height:340px; }
+    @media(min-width:768px){ #carousel { height:460px; } }
 
     /* Tone down orb brightness on wide-gamut (P3) displays so iOS ≈ Android */
     @media (color-gamut: p3) {
@@ -179,6 +179,21 @@
         Darmowa wycena
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
+      <button id="menu-toggle" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 text-slate-200" aria-label="Menu">
+        <svg id="menu-icon-open" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="menu-icon-close" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden border-t border-white/10" style="background:linear-gradient(180deg,rgba(5,7,13,.95),rgba(5,7,13,.98));backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);">
+      <nav class="flex flex-col px-4 py-4 gap-1 text-base font-medium text-slate-200">
+        <a href="#uslugi" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5">Usługi</a>
+        <a href="#dlaczego" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5">Dlaczego my</a>
+        <a href="#realizacje" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5">Realizacje</a>
+        <a href="#opinie" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5">Opinie</a>
+        <a href="#faq" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5">FAQ</a>
+        <a href="#kontakt" class="mobile-link py-3 px-3 rounded-lg hover:bg-white/5">Kontakt</a>
+        <a href="#kontakt" class="mobile-link mt-2 py-3 px-3 rounded-lg bg-brand-600 text-white text-center font-semibold">Darmowa wycena</a>
+      </nav>
     </div>
   </header>
 
@@ -215,74 +230,37 @@
         </dl>
       </div>
 
-      <div class=”relative”>
-        <!-- SLIDER -->
-        <div id=”hs” style=”position:relative;width:100%;overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);”>
+      <!-- ===================== CAROUSEL ===================== -->
+      <div id="carousel" style="position:relative;overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);">
 
-          <img id=”hs-s0” src=”assets/hero.jpg”        alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity .5s ease;z-index:1;”>
-          <img id=”hs-s1” src=”assets/zdjecie1.webp”   alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;z-index:1;”>
-          <img id=”hs-s2” src=”https://placehold.co/800x600/431407/fdba74?text=Zdjęcie+3” alt=”” style=”position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;z-index:1;”>
-
-          <div style=”position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(5,7,13,0.5) 0%,transparent 55%);pointer-events:none;z-index:3;”></div>
-
-          <button id=”hs-prev” style=”position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
-            <svg width=”20” height=”20” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M15 18l-6-6 6-6”/></svg>
-          </button>
-          <button id=”hs-next” style=”position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;”>
-            <svg width=”20” height=”20” viewBox=”0 0 24 24” fill=”none” stroke=”currentColor” stroke-width=”2.5”><path d=”M9 18l6-6-6-6”/></svg>
-          </button>
-
-          <div id=”hs-dots” style=”position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;align-items:center;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 14px;”></div>
+        <div id="carousel-strip" style="display:flex;height:100%;will-change:transform;transition:transform .5s ease;">
+          <div class="carousel-slide" style="flex:0 0 100%;height:100%;overflow:hidden;">
+            <img src="assets/hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="carousel-slide" style="flex:0 0 100%;height:100%;overflow:hidden;">
+            <img src="assets/zdjecie1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="carousel-slide" style="flex:0 0 100%;height:100%;overflow:hidden;">
+            <img src="https://placehold.co/800x600/0c4a6e/7dd3fc?text=Zdjęcie+3" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
         </div>
 
-        <script>
-          (function(){
-            var slides = [
-              document.getElementById('hs-s0'),
-              document.getElementById('hs-s1'),
-              document.getElementById('hs-s2')
-            ];
-            var dotsEl = document.getElementById('hs-dots');
-            var total  = slides.length;
-            var cur    = 0;
+        <!-- gradient dół -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(5,7,13,.5),transparent);pointer-events:none;z-index:2;"></div>
 
-            /* kropki */
-            for(var i=0;i<total;i++){
-              var d=document.createElement('button');
-              d.style.cssText='height:10px;border-radius:5px;border:none;cursor:pointer;padding:0;transition:all .3s;background:rgba(255,255,255,.4);width:10px;';
-              (function(idx){ d.addEventListener('click',function(){ go(idx); }); })(i);
-              dotsEl.appendChild(d);
-            }
+        <!-- strzałki -->
+        <button id="c-prev" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button id="c-next" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
 
-            function updDots(){
-              Array.from(dotsEl.children).forEach(function(d,i){
-                d.style.width      = i===cur ? '28px' : '10px';
-                d.style.background = i===cur ? '#fff' : 'rgba(255,255,255,.4)';
-              });
-            }
-
-            function go(n){
-              slides[cur].style.opacity='0';
-              cur = (n%total+total)%total;
-              slides[cur].style.opacity='1';
-              updDots();
-            }
-
-            document.getElementById('hs-prev').addEventListener('click',function(){ go(cur-1); });
-            document.getElementById('hs-next').addEventListener('click',function(){ go(cur+1); });
-
-            var tx=0,ty=0;
-            document.getElementById('hs').addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
-            document.getElementById('hs').addEventListener('touchend',function(e){
-              var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
-              if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){go(dx<0?cur+1:cur-1);}
-            },{passive:true});
-
-            updDots();
-            setInterval(function(){go(cur+1);},4500);
-          })();
-        </script>
+        <!-- kropki -->
+        <div id="c-dots" style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:8px 14px;"></div>
       </div>
+
+      <!-- =================== /CAROUSEL =================== -->
     </div>
   </section>
 
@@ -505,7 +483,7 @@
           </li>
           <li class="flex gap-3">
             <span class="w-10 h-10 shrink-0 rounded-xl bg-brand-600 text-white grid place-items-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <div><h4 class="font-semibold">Pomoc w dotacjach</h4><p class="text-slate-400 text-sm">„Czyste Powietrze”, „Mój Prąd”, ulga termomodernizacyjna.</p></div>
+            <div><h4 class="font-semibold">Pomoc w dotacjach</h4><p class="text-slate-400 text-sm">„Czyste Powietrze", „Mój Prąd", ulga termomodernizacyjna.</p></div>
           </li>
           <li class="flex gap-3">
             <span class="w-10 h-10 shrink-0 rounded-xl bg-brand-600 text-white grid place-items-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>
@@ -513,7 +491,7 @@
           </li>
           <li class="flex gap-3">
             <span class="w-10 h-10 shrink-0 rounded-xl bg-brand-600 text-white grid place-items-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <div><h4 class="font-semibold">Stała cena</h4><p class="text-slate-400 text-sm">Wycena przed rozpoczęciem — bez „niespodzianek”.</p></div>
+            <div><h4 class="font-semibold">Stała cena</h4><p class="text-slate-400 text-sm">Wycena przed rozpoczęciem — bez „niespodzianek".</p></div>
           </li>
           <li class="flex gap-3">
             <span class="w-10 h-10 shrink-0 rounded-xl bg-brand-600 text-white grid place-items-center"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>
@@ -683,7 +661,7 @@
       <div class="mt-10 grid md:grid-cols-3 gap-6">
         <blockquote class="rounded-2xl border border-white/10 p-6 bg-slate-900">
           <div class="flex text-amber-500">★★★★★</div>
-          <p class="mt-3 text-slate-300">„Montaż pompy ciepła zrobiony szybko, profesjonalnie i czysto. Panowie wyjaśnili każdy detal. Rachunki za ogrzewanie spadły o 60%.”</p>
+          <p class="mt-3 text-slate-300">„Montaż pompy ciepła zrobiony szybko, profesjonalnie i czysto. Panowie wyjaśnili każdy detal. Rachunki za ogrzewanie spadły o 60%."</p>
           <footer class="mt-4 flex items-center gap-3">
             <span class="w-10 h-10 rounded-full bg-brand-600 text-white grid place-items-center font-bold">AK</span>
             <div><div class="font-semibold">Anna Kowalska</div><div class="text-sm text-slate-500">Pruszków · pompa ciepła</div></div>
@@ -691,7 +669,7 @@
         </blockquote>
         <blockquote class="rounded-2xl border border-white/10 p-6 bg-slate-900">
           <div class="flex text-amber-500">★★★★★</div>
-          <p class="mt-3 text-slate-300">„Klimatyzacja w biurze działa bezproblemowo od 3 lat, wszystkie przeglądy zawsze na czas. Polecam każdej firmie.”</p>
+          <p class="mt-3 text-slate-300">„Klimatyzacja w biurze działa bezproblemowo od 3 lat, wszystkie przeglądy zawsze na czas. Polecam każdej firmie."</p>
           <footer class="mt-4 flex items-center gap-3">
             <span class="w-10 h-10 rounded-full bg-warm-500 text-white grid place-items-center font-bold">MN</span>
             <div><div class="font-semibold">Marek Nowak</div><div class="text-sm text-slate-500">Warszawa · klimatyzacja</div></div>
@@ -699,7 +677,7 @@
         </blockquote>
         <blockquote class="rounded-2xl border border-white/10 p-6 bg-slate-900">
           <div class="flex text-amber-500">★★★★★</div>
-          <p class="mt-3 text-slate-300">„Pomogli w całej papierologii do Czystego Powietrza. Bez nich sam bym się pogubił. Bardzo uczciwa ekipa.”</p>
+          <p class="mt-3 text-slate-300">„Pomogli w całej papierologii do Czystego Powietrza. Bez nich sam bym się pogubił. Bardzo uczciwa ekipa."</p>
           <footer class="mt-4 flex items-center gap-3">
             <span class="w-10 h-10 rounded-full bg-emerald-600 text-white grid place-items-center font-bold">JW</span>
             <div><div class="font-semibold">Jakub Wiśniewski</div><div class="text-sm text-slate-500">Grodzisk Maz. · kocioł + dotacja</div></div>
@@ -743,7 +721,7 @@
           <summary class="flex items-center justify-between cursor-pointer font-semibold">Czy pomagacie w uzyskaniu dotacji?
             <svg class="chev w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
           </summary>
-          <p class="mt-3 text-slate-400">Tak — prowadzimy klientów przez „Czyste Powietrze”, „Mój Prąd” i ulgę termomodernizacyjną. Przygotowujemy komplet dokumentów i audyt.</p>
+          <p class="mt-3 text-slate-400">Tak — prowadzimy klientów przez „Czyste Powietrze", „Mój Prąd" i ulgę termomodernizacyjną. Przygotowujemy komplet dokumentów i audyt.</p>
         </details>
         <details class="group bg-slate-900 rounded-xl border border-white/10 p-5">
           <summary class="flex items-center justify-between cursor-pointer font-semibold">Jak długo trwa montaż klimatyzacji?
@@ -910,6 +888,80 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+    (function(){
+      var wrap   = document.getElementById('carousel');
+      var strip  = document.getElementById('carousel-strip');
+      var slides = document.querySelectorAll('.carousel-slide');
+      var dots   = document.getElementById('c-dots');
+      var n      = slides.length;
+      var cur    = 0;
+
+      function resize(){
+        var w = wrap.offsetWidth;
+        if(!w) return;
+        for(var i=0;i<n;i++) slides[i].style.width = w+'px';
+        move(false);
+      }
+
+      function move(anim){
+        strip.style.transition = anim===false ? 'none' : 'transform .5s ease';
+        strip.style.transform  = 'translateX('+ (-cur * wrap.offsetWidth) +'px)';
+        for(var i=0;i<dots.children.length;i++){
+          dots.children[i].style.width      = i===cur ? '28px' : '10px';
+          dots.children[i].style.background = i===cur ? '#fff' : 'rgba(255,255,255,.4)';
+        }
+      }
+
+      function go(x){ cur=(x%n+n)%n; move(true); }
+
+      for(var i=0;i<n;i++){
+        var d = document.createElement('button');
+        d.style.cssText = 'width:10px;height:10px;border-radius:5px;border:none;padding:0;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.4);';
+        (function(idx){ d.addEventListener('click',function(){ go(idx); }); })(i);
+        dots.appendChild(d);
+      }
+
+      document.getElementById('c-prev').addEventListener('click', function(){ go(cur-1); });
+      document.getElementById('c-next').addEventListener('click', function(){ go(cur+1); });
+
+      var tx=0, ty=0;
+      wrap.addEventListener('touchstart', function(e){ tx=e.touches[0].clientX; ty=e.touches[0].clientY; },{passive:true});
+      wrap.addEventListener('touchend',   function(e){
+        var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+        if(Math.abs(dx)>Math.abs(dy) && Math.abs(dx)>40) go(dx<0 ? cur+1 : cur-1);
+      },{passive:true});
+
+      window.addEventListener('resize', resize);
+      resize();
+      setInterval(function(){ go(cur+1); }, 5000);
+    })();
+  </script>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('menu-toggle');
+      var menu = document.getElementById('mobile-menu');
+      var iconOpen = document.getElementById('menu-icon-open');
+      var iconClose = document.getElementById('menu-icon-close');
+      if(!btn || !menu) return;
+
+      btn.addEventListener('click', function(){
+        var open = menu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+      });
+
+      menu.querySelectorAll('.mobile-link').forEach(function(link){
+        link.addEventListener('click', function(){
+          menu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+    })();
   </script>
 </body>
 </html>
