@@ -650,6 +650,153 @@
     </div>
   </section>
 
+  <!-- Live Demo ecoNET24 -->
+  <section id="live-demo" class="py-20 lg:py-24 bg-slate-900/50">
+    <style>
+      .ld-card{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:20px;padding:32px;border:1px solid rgba(249,115,22,0.15);max-width:480px;width:100%;box-shadow:0 0 60px rgba(249,115,22,0.05);margin:0 auto;}
+      .ld-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+      .ld-header-label{color:#f97316;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+      .ld-header-title{color:#f1f5f9;font-size:16px;font-weight:700;margin-top:4px;}
+      .ld-badge{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,0.1);padding:5px 14px;border-radius:20px;}
+      .ld-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;animation:ldPulse 2s ease-in-out infinite;}
+      .ld-badge-text{color:#22c55e;font-size:12px;font-weight:500;}
+      .ld-gauge-container{display:flex;justify-content:center;margin-bottom:24px;position:relative;}
+      .ld-gauge-wrap{position:relative;width:200px;height:200px;}
+      .ld-gauge-svg{overflow:visible;}
+      .ld-gauge-bg{fill:none;stroke:rgba(148,163,184,0.08);stroke-width:10;}
+      .ld-gauge-fill{fill:none;stroke:url(#ldGaugeGrad);stroke-width:10;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;animation:ldGaugeIn 2s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;filter:drop-shadow(0 0 8px rgba(249,115,22,0.5));}
+      .ld-gauge-glow{fill:none;stroke:rgba(249,115,22,0.06);stroke-width:26;stroke-dasharray:440;stroke-dashoffset:440;animation:ldGaugeIn 2s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;}
+      .ld-rotate-ring{fill:none;stroke:url(#ldRotGrad);stroke-width:2;stroke-linecap:round;stroke-dasharray:60 380;opacity:0;animation:ldAppear 0.5s ease 2.2s forwards,ldSpin 3s linear 2.2s infinite;filter:drop-shadow(0 0 4px rgba(249,115,22,0.6));}
+      .ld-ambient{fill:none;stroke:url(#ldAmbGrad);stroke-width:1.5;stroke-dasharray:30 40;opacity:0;animation:ldAppear 0.5s ease 2.5s forwards,ldSpinR 8s linear 2.5s infinite;}
+      .ld-spin-g{transform-origin:100px 100px;}
+      .ld-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:140px;}
+      .ld-temp{font-size:44px;font-weight:800;color:#f1f5f9;opacity:0;animation:ldFadeUp 0.8s ease 1.5s forwards;font-variant-numeric:tabular-nums;min-width:120px;display:inline-block;white-space:nowrap;}
+      .ld-temp-label{font-size:12px;color:#94a3b8;margin-top:2px;opacity:0;animation:ldFadeUp 0.8s ease 1.7s forwards;white-space:nowrap;}
+      .ld-stats{display:flex;justify-content:center;gap:0;margin-bottom:20px;}
+      .ld-stat{flex:1;text-align:center;padding:0 14px;opacity:0;animation:ldFadeUp 0.6s ease forwards;}
+      .ld-stat:nth-child(1){animation-delay:1.8s;}
+      .ld-stat:nth-child(2){animation-delay:2.0s;border-left:1px solid rgba(148,163,184,0.15);border-right:1px solid rgba(148,163,184,0.15);}
+      .ld-stat:nth-child(3){animation-delay:2.2s;}
+      .ld-stat-val{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;}
+      .ld-stat-lbl{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+      .ld-power{background:rgba(15,23,42,0.5);border-radius:14px;padding:14px 18px;opacity:0;animation:ldFadeUp 0.6s ease 2.4s forwards;}
+      .ld-power-top{display:flex;justify-content:space-between;margin-bottom:8px;}
+      .ld-power-lbl{color:#94a3b8;font-size:12px;}
+      .ld-power-val{color:#f1f5f9;font-size:14px;font-weight:600;}
+      .ld-power-track{background:rgba(148,163,184,0.1);border-radius:6px;height:8px;overflow:hidden;}
+      .ld-power-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#f97316,#fb923c);width:0%;animation:ldBar 1.5s cubic-bezier(0.4,0,0.2,1) 2.6s forwards;box-shadow:0 0 12px rgba(249,115,22,0.3);}
+      .ld-infos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;opacity:0;animation:ldFadeUp 0.6s ease 2.6s forwards;}
+      .ld-info{background:rgba(15,23,42,0.5);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+      .ld-info-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+      .ld-info-lbl{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;}
+      .ld-info-val{font-size:17px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums;}
+      .ld-info-sub{font-size:10px;color:#64748b;margin-top:1px;}
+      .ld-blink{animation:ldBlink 1s step-end infinite;}
+      .ld-footer{margin-top:14px;text-align:center;opacity:0;animation:ldFadeUp 0.6s ease 2.8s forwards;}
+      .ld-footer-text{color:#64748b;font-size:11px;}
+      @keyframes ldGaugeIn{to{stroke-dashoffset:132;}}
+      @keyframes ldFadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+      @keyframes ldBar{to{width:60%;}}
+      @keyframes ldPulse{0%,100%{opacity:1;box-shadow:0 0 8px #22c55e;}50%{opacity:0.5;box-shadow:0 0 16px #22c55e;}}
+      @keyframes ldSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+      @keyframes ldSpinR{from{transform:rotate(360deg);}to{transform:rotate(0deg);}}
+      @keyframes ldAppear{from{opacity:0;}to{opacity:1;}}
+      @keyframes ldBlink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+    </style>
+    <div class="mx-auto max-w-7xl px-4">
+      <div class="max-w-2xl mb-10">
+        <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Live demo</span>
+        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Podgląd instalacji na żywo</h2>
+        <p class="mt-3 text-slate-400">Dane z kotła zgazowującego drewno jednego z naszych klientów — aktualizowane w czasie rzeczywistym z systemu ecoNET24.</p>
+      </div>
+
+      <div class="ld-card">
+        <div class="ld-header">
+          <div>
+            <div class="ld-header-label">Live · ecoNET24</div>
+            <div class="ld-header-title">Kocioł zgazowujący drewno</div>
+          </div>
+          <div class="ld-badge">
+            <div class="ld-dot"></div>
+            <span class="ld-badge-text">Online</span>
+          </div>
+        </div>
+
+        <div class="ld-gauge-container">
+          <div class="ld-gauge-wrap">
+            <svg viewBox="0 0 200 200" class="ld-gauge-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+              <defs>
+                <linearGradient id="ldGaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#fbbf24"/></linearGradient>
+                <linearGradient id="ldRotGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f97316" stop-opacity="0"/><stop offset="50%" stop-color="#fbbf24" stop-opacity="1"/><stop offset="100%" stop-color="#f97316" stop-opacity="0"/></linearGradient>
+                <linearGradient id="ldAmbGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fb923c" stop-opacity="0"/><stop offset="50%" stop-color="#f97316" stop-opacity="0.5"/><stop offset="100%" stop-color="#fb923c" stop-opacity="0"/></linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="70" class="ld-gauge-bg" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="70" class="ld-gauge-glow" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="70" class="ld-gauge-fill" transform="rotate(-90 100 100)"/>
+              <g class="ld-spin-g" style="opacity:0;animation:ldAppear 0.5s ease 2.2s forwards,ldSpin 3s linear 2.2s infinite;"><circle cx="100" cy="100" r="58" class="ld-rotate-ring" style="animation:none;opacity:1;"/></g>
+              <g class="ld-spin-g" style="opacity:0;animation:ldAppear 0.5s ease 2.5s forwards,ldSpinR 8s linear 2.5s infinite;"><circle cx="100" cy="100" r="82" class="ld-ambient" style="animation:none;opacity:1;"/></g>
+            </svg>
+            <div class="ld-center">
+              <div class="ld-temp" id="ldTemp">72°C</div>
+              <div class="ld-temp-label">Temperatura kotła</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ld-stats">
+          <div class="ld-stat"><div class="ld-stat-val" style="color:#3b82f6;" id="ldCo">55°C</div><div class="ld-stat-lbl">CO zasilanie</div></div>
+          <div class="ld-stat"><div class="ld-stat-val" style="color:#06b6d4;" id="ldCwu">48°C</div><div class="ld-stat-lbl">CWU</div></div>
+          <div class="ld-stat"><div class="ld-stat-val" style="color:#f97316;" id="ldSpaliny">145°C</div><div class="ld-stat-lbl">Spaliny</div></div>
+        </div>
+
+        <div class="ld-power">
+          <div class="ld-power-top"><span class="ld-power-lbl">Moc kotła</span><span class="ld-power-val" id="ldPower">18 / 30 kW</span></div>
+          <div class="ld-power-track"><div class="ld-power-fill" id="ldPowerFill"></div></div>
+        </div>
+
+        <div class="ld-infos">
+          <div class="ld-info">
+            <div class="ld-info-icon" style="background:rgba(56,189,248,0.1);">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="9" y="3" width="3" height="12" rx="1.5" stroke="#38bdf8" stroke-width="1.2"/><circle cx="10.5" cy="15" r="2.5" stroke="#38bdf8" stroke-width="1.2"/><circle cx="10.5" cy="15" r="1" fill="#38bdf8"/><line x1="14" y1="5" x2="16" y2="5" stroke="#38bdf8" stroke-width="1" stroke-linecap="round"/><line x1="14" y1="8" x2="16" y2="8" stroke="#38bdf8" stroke-width="1" stroke-linecap="round"/></svg>
+            </div>
+            <div><div class="ld-info-lbl">Na zewnątrz</div><div class="ld-info-val" style="color:#38bdf8;" id="ldOutdoor">4°C</div></div>
+          </div>
+          <div class="ld-info">
+            <div class="ld-info-icon" style="background:rgba(251,191,36,0.1);">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3 L17 9 L15 9 L15 16 L12 16 L12 12 L8 12 L8 16 L5 16 L5 9 L3 9 Z" stroke="#fbbf24" stroke-width="1.2" stroke-linejoin="round"/><rect x="8.5" y="6" width="3" height="3" rx="0.5" stroke="#fbbf24" stroke-width="0.8"/></svg>
+            </div>
+            <div><div class="ld-info-lbl">Następny załadunek</div><div class="ld-info-val" style="color:#fbbf24;" id="ldCountdown">2<span class="ld-blink">:</span>15</div><div class="ld-info-sub">godzin</div></div>
+          </div>
+        </div>
+
+        <div class="ld-footer"><div class="ld-footer-text">Ostatnia aktualizacja: <span id="ldUpdate">2 min temu</span></div></div>
+      </div>
+    </div>
+
+    <script>
+      (function(){
+        const base={temp:72,co:55,cwu:48,spaliny:145,power:18};
+        function fl(b,r){return b+(Math.random()-0.5)*r;}
+        function upd(){
+          const t=Math.round(fl(base.temp,3)),c=Math.round(fl(base.co,2)),w=Math.round(fl(base.cwu,1)),s=Math.round(fl(base.spaliny,8)),p=Math.round(fl(base.power,2));
+          document.getElementById('ldTemp').textContent=t+'°C';
+          document.getElementById('ldCo').textContent=c+'°C';
+          document.getElementById('ldCwu').textContent=w+'°C';
+          document.getElementById('ldSpaliny').textContent=s+'°C';
+          document.getElementById('ldPower').textContent=p+' / 30 kW';
+          document.getElementById('ldPowerFill').style.width=(p/30*100)+'%';
+          document.getElementById('ldPowerFill').style.animation='none';
+          document.getElementById('ldOutdoor').textContent=Math.round(fl(4,1))+'°C';
+          document.getElementById('ldUpdate').textContent='teraz';
+        }
+        setTimeout(function(){setInterval(upd,3000);},3500);
+        var cd=2*3600+15*60;
+        function updCd(){cd--;if(cd<0)cd=0;var h=Math.floor(cd/3600),m=Math.floor((cd%3600)/60);document.getElementById('ldCountdown').innerHTML=h+'<span class="ld-blink">:</span>'+String(m).padStart(2,'0');}
+        setTimeout(function(){setInterval(updCd,60000);},3500);
+      })();
+    </script>
+  </section>
+
   <!-- Opinie -->
   <section id="opinie" class="py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-4">
