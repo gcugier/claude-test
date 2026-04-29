@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+*.png
+!assets/**/*.png
+.claude/
+.superpowers/
+.playwright-mcp/
+playwright-report/
+test-results/

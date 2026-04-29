@@ -234,6 +234,12 @@
       <div id="carousel" style="position:relative;overflow:hidden;border-radius:1.5rem;box-shadow:0 25px 60px -15px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);">
 
         <div id="carousel-strip" style="display:flex;height:100%;will-change:transform;transition:transform .5s ease;">
+          <div class="carousel-slide" style="flex:0 0 100%;height:100%;overflow:hidden;background:#0a0f1a;position:relative;">
+            <video id="jingle-video" src="assets/WhatsApp Video 2026-04-26 at 19.31.31.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain;display:block;"></video>
+            <button id="jingle-sound" onclick="var v=document.getElementById('jingle-video');v.muted=!v.muted;this.innerHTML=v.muted?'<svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M11 5L6 9H2v6h4l5 4V5z&quot;/><line x1=&quot;23&quot; y1=&quot;9&quot; x2=&quot;17&quot; y2=&quot;15&quot;/><line x1=&quot;17&quot; y1=&quot;9&quot; x2=&quot;23&quot; y2=&quot;15&quot;/></svg>':'<svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M11 5L6 9H2v6h4l5 4V5z&quot;/><path d=&quot;M19.07 4.93a10 10 0 0 1 0 14.14&quot;/><path d=&quot;M15.54 8.46a5 5 0 0 1 0 7.07&quot;/></svg>'" style="position:absolute;bottom:20px;right:20px;z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            </button>
+          </div>
           <div class="carousel-slide" style="flex:0 0 100%;height:100%;overflow:hidden;">
             <img src="assets/hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
@@ -241,7 +247,7 @@
             <img src="assets/zdjecie1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
           <div class="carousel-slide" style="flex:0 0 100%;height:100%;overflow:hidden;">
-            <img src="https://placehold.co/800x600/0c4a6e/7dd3fc?text=Zdjęcie+3" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <img src="assets/zdjecie serwis.png" alt="Serwis instalacji" style="width:100%;height:100%;object-fit:contain;display:block;background:#0a0f1a;">
           </div>
         </div>
 
