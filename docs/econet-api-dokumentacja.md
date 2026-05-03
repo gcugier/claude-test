@@ -63,9 +63,9 @@ curl -u admin:admin http://192.168.50.144/econet/regParams
 | `boilerPower` | Moc kotła procentowa | % | Kalkulacja regulatora na podstawie spalin, wentylatora, lambda |
 | `boilerPowerKW` | Moc kotła w kilowatach | kW | boilerPower × moc_nominalna / 100 |
 | `fanPower` | Moc wentylatora nadmuchowego | % | 0–100 |
-| `fuelStream` | Strumień paliwa | kg/h | Tylko pellet (podajnik). Dla drewna = 0 |
-| `fuelConsum` | Zużycie paliwa skumulowane | kg | Tylko pellet. Dla drewna = 0 |
-| `fuelLevel` | Poziom paliwa w zasobniku | — | Tylko pellet |
+| `fuelStream` | Strumień paliwa | kg/h | Dla kotła zgazowującego drewno = 0 (paliwo podawane impulsowo, nie mierzone ciągłe) |
+| `fuelConsum` | Zużycie paliwa skumulowane | kg | Dla kotła zgazowującego drewno = 0 (zużycie szacowane z kaloryczności, nie mierzone) |
+| `fuelLevel` | Poziom paliwa w zasobniku | — | Dla kotła zgazowującego drewno zawsze = 0 (brak zbiornika) |
 
 ### Sonda lambda
 
